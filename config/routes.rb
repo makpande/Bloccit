@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'welcome/about'
   get 'welcome/contact'
+  get 'welcome/faq'
   get 'welcome/index'
   root to: 'welcome#index'
 

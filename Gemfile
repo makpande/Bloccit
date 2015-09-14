@@ -11,6 +11,12 @@ gem 'rails', '4.2.3'
 group :development do
   gem 'sqlite3'
 end
+# Rspec gem for testing
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
