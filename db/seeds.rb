@@ -17,28 +17,30 @@
  #  end
 #Post with unique post
 
-  Post.find_or_create_by(title: 'This is my unique title')
+  Post.find_or_create_by(
+    title: 'This is my unique title',
+    body: 'This is my unique title body'
+  )
 
-  Post.find_or_create_by(title: 'This is my unique title')
+  Post.create_with(body: 'This is my unique title body').find_or_create_by(title: 'This is my unique title')
 
-  Post.create_with(body: 'This is my unique title body').find_or_create_by(body: 'This is my unique title')
-
-  Post.find_or_create_by(title: 'This is my unique title') do |post|
+  p = Post.find_or_create_by(title: 'This is my unique title') do |post|
     post.body = 'This is my unique title body'
   end
 
   #Comment with unique comment
   #
-  Comment.find_or_create_by(body: 'This is my unique comment body')
+  Comment.find_or_create_by(
+    body: 'This is my unique comment body',
+    post: p
+  )
 
-  Comment.find_or_create_by(body: 'This is my unique comment body')
-
-  Comment.create_with(post: 'This is my unique post').find_or_create_by(body: 'This is my unique comment body')
+  Comment.create_with(post: p).find_or_create_by(body: 'This is my unique comment body')
 
   Comment.find_or_create_by(body: 'This is my unique comment body') do |comment|
-    comment.body = 'This is my unique comment body'
+    comment.post = p
   end
 
-#   puts "Seed finished"
-#   puts "#{Post.count} posts created"
-#   puts "#{Comment.count} comments created"
+  puts "Seed finished"
+  puts "#{Post.count} posts created"
+  puts "#{Comment.count} comments created"
