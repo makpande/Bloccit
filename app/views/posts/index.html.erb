@@ -2,5 +2,11 @@
 
 
 <% @posts.each do |post| %>
-   <p><%= link_to post.title, post_path(post.id) %></p>
- <% end %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= link_to post.title, post %>
+      </h4>
+    </div>
+  </div>
+<% end %>
