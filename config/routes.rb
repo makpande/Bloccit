@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  # get 'question/index'
+  #
+  # get 'question/show'
+  #
+  # get 'question/new'
+  #
+  # get 'question/create'
+
   # get 'advertisements/index'
   #
   # get 'advertisements/show'
@@ -10,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :advertisements
+  resources :question
   # get 'posts/index'
   #
   # get 'posts/show'
