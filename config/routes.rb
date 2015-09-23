@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   # get 'advertisements/new'
   #
   # get 'advertisements/create'
-
+  resources :question
   resources :posts
   resources :advertisements
-  resources :question
+
   # get 'posts/index'
   #
   # get 'posts/show'
