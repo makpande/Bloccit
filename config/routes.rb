@@ -15,8 +15,11 @@ Rails.application.routes.draw do
   # get 'advertisements/new'
   #
   # get 'advertisements/create'
-  resources :topics
-  resources :posts
+  # resources :topics
+  # resources :posts
+  resources :topics do
+    resources :posts, except: [:index]
+  end
   resources :advertisements
   resources :question
   # get 'posts/index'
