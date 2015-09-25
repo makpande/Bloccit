@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # get 'advertisements/new'
   #
   # get 'advertisements/create'
-  resources :question
+  resources :questions
   resources :posts
   resources :advertisements
 
