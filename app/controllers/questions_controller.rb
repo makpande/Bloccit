@@ -1,4 +1,4 @@
-class QuestionController < ApplicationController
+class QuestionsController < ApplicationController
   def index
     @question = Question.all
   end
@@ -13,7 +13,7 @@ class QuestionController < ApplicationController
 
   def create
      @question = Question.new
-     @Question.title = params[:question][:title]
+     @question.title = params[:question][:title]
      @question.body = params[:question][:body]
 
 
