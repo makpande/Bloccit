@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  # get 'sponsored_posts/show'
+  #
+  # get 'sponsored_posts/new'
+  #
+  # get 'sponsored_posts/edit'
+
   # get 'question/index'
   #
   # get 'question/show'
@@ -15,13 +21,19 @@ Rails.application.routes.draw do
   # get 'advertisements/new'
   #
   # get 'advertisements/create'
+
   # resources :topics
   # resources :posts
-  resources :topics do
-    resources :posts, except: [:index]
-  end
-  resources :advertisements
+  # resources :topics do
+  #   resources :posts, except: [:index]
+  #   resources :sponsored_posts, except: [:index]
+  # end
+
   resources :question
+  resources :posts
+
+  resources :advertisements
+
   # get 'posts/index'
   #
   # get 'posts/show'

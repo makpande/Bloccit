@@ -11,6 +11,21 @@ class QuestionController < ApplicationController
     @question = Question.new
   end
 
+  def create
+     @question = Question.new
+     @Question.title = params[:question][:title]
+     @question.body = params[:question][:body]
+
+
+    if @question.save
+      flash[:notice] = "Post was saved."
+      redirect_to @question
+    else
+       flash[:error] = "There was an error saving the post. Please try again."
+       render :new
+    end
+  end
+
   def update
     @question = Question.find(params[:id])
 
