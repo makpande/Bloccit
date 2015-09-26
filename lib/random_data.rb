@@ -25,11 +25,9 @@ module RandomData
      letters.shuffle!
      letters[0,rand(3..8)].join
    end
-<<<<<<< HEAD
-=======
+
 
    def rand_price
      rand(10..50).to_i
    end
->>>>>>> assignment-32
 end
