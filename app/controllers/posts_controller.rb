@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
   end
 
-    #Create new Post
+  #Create new Post
   def create
     @post = Post.new
     @post.title = params[:post][:title]
