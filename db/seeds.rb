@@ -1,20 +1,20 @@
 include RandomData
 
-#  15.times do
-#   Topic.create!(
-#     name:         RandomData.random_sentence,
-#     description:  RandomData.random_paragraph
-#   )
-# end
-# topics = Topic.all
-#
-# 50.times do
-#    Post.create!(
-#      topic:  topics.sample,
-#      title:  RandomData.random_sentence,
-#      body:   RandomData.random_paragraph
-#    )
-#  end
+ 15.times do
+  Topic.create!(
+    name:         RandomData.random_sentence,
+    description:  RandomData.random_paragraph
+  )
+end
+topics = Topic.all
+
+50.times do
+   SponsoredPost.create!(
+     topic:  topics.sample,
+     title:  RandomData.random_sentence,
+     body:   RandomData.random_paragraph
+   )
+ end
   # 50.times do
   #   Question.create!(
   #     title: RandomData.random_sentence,
@@ -55,9 +55,9 @@ include RandomData
 #     comment.body = 'This is my unique comment body'
 # end
 
-  #  puts "Seed finished"
-  #  puts "#{Topic.count} topics created"
-  #  puts "#{Post.count} posts created"
+    puts "Seed finished"
+    puts "#{Topic.count} topics created"
+    puts "#{SponsoredPost.count} posts created"
   #  puts "#{Question.count} question data created"
   #  puts "#{Comment.count} comments created"
 
