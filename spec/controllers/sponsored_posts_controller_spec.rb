@@ -1,17 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe QuestionController, type: :controller do
+RSpec.describe SponsoredPostsController, type: :controller do
 
-  describe "GET #index" do
+  describe "GET #edit" do
     it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #show" do
-    it "returns http success" do
-      get :show
+      get :edit
       expect(response).to have_http_status(:success)
     end
   end
@@ -23,9 +16,9 @@ RSpec.describe QuestionController, type: :controller do
     end
   end
 
-  describe "GET #create" do
+  describe "GET #show" do
     it "returns http success" do
-      get :create
+      get :show
       expect(response).to have_http_status(:success)
     end
   end

@@ -10,6 +10,6 @@
 #  updated_at :datetime         not null
 #
 
-class Questions < ActiveRecord::Base
+class Question < ActiveRecord::Base
   has_many :answers
 end

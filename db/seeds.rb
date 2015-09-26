@@ -1,5 +1,13 @@
- include RandomData
+include RandomData
 
+ 15.times do
+   SponsoredPost.create!(
+     title: RandomData.random_sentence,
+     body: RandomData.random_paragraph,
+     price: 0
+     )
+ end
+ sponsored_posts = SponsoredPost.all
 #  15.times do
 #   Topic.create!(
 #     name:         RandomData.random_sentence,
@@ -7,7 +15,7 @@
 #   )
 # end
 # topics = Topic.all
-#
+# #
 # 50.times do
 #    Post.create!(
 #      topic:  topics.sample,
@@ -15,14 +23,7 @@
 #      body:   RandomData.random_paragraph
 #    )
 #  end
-  50.times do
-    Question.create!(
-      title: RandomData.random_sentence,
-      body: RandomData.random_paragraph,
-      resolved: false
-    )
-  end
-  # question = Question.all
+
 #
 #
   # 100.times do
@@ -58,5 +59,5 @@
    puts "Seed finished"
   #  puts "#{Topic.count} topics created"
   #  puts "#{Post.count} posts created"
-   puts "#{Question.count} question data created"
+   puts "#{Sponsored_post.count} question data created"
   #  puts "#{Comment.count} comments created"
