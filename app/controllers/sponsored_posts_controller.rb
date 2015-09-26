@@ -35,11 +35,11 @@ class SponsoredPostsController < ApplicationController
 # Update post
   def update
      @sponsoredpost = SponsoredPost.find(params[:id])
-     @sponsoredpost.title = params[:post][:title]
-     @sponsoredpost.body = params[:post][:body]
+     @sponsoredpost.title = params[:sponsored_post][:title]
+     @sponsoredpost.body = params[:sponsored_post][:body]
 
      if @sponsoredpost.save
-       flash[:notice] = "Post was updated."
+       flash[:notice] = "Sponsored Post was updated."
       #  redirect_to @post
       redirect_to [@topic, @sponsoredpost]
      else
