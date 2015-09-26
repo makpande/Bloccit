@@ -8,20 +8,18 @@ class PostsController < ApplicationController
   end
 
   def new
-
-    @topic = Topic.find(params[:topic_id])
     @post = Post.new
+    @topic = Topic.find(params[:topic_id])
   end
 
-#Create new Post
+    #Create new Post
   def create
-     @post = Post.new
-     @post.title = params[:post][:title]
-     @post.body = params[:post][:body]
-     @topic = Topic.find(params[:topic_id])
+    @post = Post.new
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
+    @topic = Topic.find(params[:topic_id])
 
      @post.topic = @topic
-
 
     if @post.save
       flash[:notice] = "Post was saved."
