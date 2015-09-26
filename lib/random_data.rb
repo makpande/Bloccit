@@ -15,7 +15,6 @@ module RandomData
      rand(3..8).times do
        strings << random_word
      end
-
      sentence = strings.join(" ")
      sentence.capitalize << "."
    end
@@ -26,4 +25,11 @@ module RandomData
      letters.shuffle!
      letters[0,rand(3..8)].join
    end
+<<<<<<< HEAD
+=======
+
+   def rand_price
+     rand(10..50).to_i
+   end
+>>>>>>> assignment-32
 end
