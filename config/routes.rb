@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   # get 'advertisements/new'
   #
   # get 'advertisements/create'
-
   # resources :topics
   # resources :posts
   resources :topics do
@@ -29,7 +28,8 @@ Rails.application.routes.draw do
     resources :sponsored_posts, except: [:index]
   end
 
-  resources :question
+  resources :questions
+
   resources :posts
 
   resources :advertisements
