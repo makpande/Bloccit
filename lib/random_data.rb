@@ -28,6 +28,6 @@ module RandomData
 
 
    def rand_price
-     rand(10..50).to_i
+     rand(10..50).to_f
    end
 end
