@@ -1,47 +1,19 @@
 Rails.application.routes.draw do
 
 
-  # get 'sponsored_posts/show'
-  #
-  # get 'sponsored_posts/new'
-  #
-  # get 'sponsored_posts/edit'
-
-  # get 'question/index'
-  #
-  # get 'question/show'
-  #
-  # get 'question/new'
-  #
-  # get 'question/create'
-
-  # get 'advertisements/index'
-  #
-  # get 'advertisements/show'
-  #
-  # get 'advertisements/new'
-  #
-  # get 'advertisements/create'
-  # resources :topics
-  # resources :posts
   resources :topics do
     resources :posts, except: [:index]
     resources :sponsored_posts, except: [:index]
   end
 
+  # resources :topics do
+  #   resources :sponsored_posts, except: [:index]
+  # end
+
   resources :questions
-
   resources :posts
-
   resources :advertisements
 
-  # get 'posts/index'
-  #
-  # get 'posts/show'
-  #
-  # get 'posts/new'
-  #
-  # get 'posts/edit'
 
   get 'about' => 'welcome#about'
   # get 'welcome/contact'
