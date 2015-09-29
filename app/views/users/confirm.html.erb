@@ -1,0 +1,39 @@
+
+  <h1>Sign Up Confirmation </h1>
+  <h2>Are you sure these values are correct?</h2>
+  <!-- Accessing the values in the confirmation form -->
+  <%= form_for @user do |f| %>
+  <%= form_group_tag(@user.errors[:email]) do %>
+    <%= f.label :email %>
+    <%= f.text_field :email, autofocus: true, class: 'form-control', placeholder: "Enter name" %>
+  <% end %>
+  <%= form_group_tag(@user.errors[:name]) do %>
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "Enter name" %>
+  <% end %>
+  <% end %><br><br>
+<!--Taking values from confirm form to controller and create method to save record  -->
+<div class="row">
+  <div class="col-md-8">
+  <%= button_to "Yes", {:controller => "users", :action => "create",
+                        :params => params}, class: 'btn btn-success'%>
+  <%= button_to "No", new_user_path, class: 'btn btn-default' %>
+</div>
+</div>
+
+    <% if flash[:notice] %>
+     <div class="alert alert-success">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <%= flash[:notice] %>
+     </div>
+    <% elsif flash[:error] %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:error] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>

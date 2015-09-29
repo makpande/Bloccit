@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     resources :posts, except: [:index]
     resources :sponsored_posts, except: [:index]
   end
+  match 'users/confirm' => 'users#confirm', via: [:post, :get]
+
   resources :users, only: [:new, :create]
+
   # resources :topics do
   #   resources :sponsored_posts, except: [:index]
   # end
