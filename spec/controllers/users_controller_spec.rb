@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 
+  let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "password") }
+   it { should have_many(:posts)}
+
   let (:new_user_attributes) do
      {
          name: "Blochead",
