@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match 'users/confirm' => 'users#confirm', via: [:post, :get]
 
   resources :users, only: [:new, :create]
+  resources :sessions, only: [:new, :create, :destroy]
 
   # resources :topics do
   #   resources :sponsored_posts, except: [:index]
