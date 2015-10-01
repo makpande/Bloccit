@@ -13,10 +13,11 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new
-    @topic.name = params[:topic][:name]
-    @topic.description = params[:topic][:description]
-    @topic.public = params[:topic][:public]
+    # @topic = Topic.new
+    # @topic.name = params[:topic][:name]
+    # @topic.description = params[:topic][:description]
+    # @topic.public = params[:topic][:public]
+    @topic = Topic.new(topic_params)
 
     if @topic.save
       redirect_to @topic, notice: "Topic was saved successfully"
@@ -33,9 +34,10 @@ class TopicsController < ApplicationController
   def update
      @topic = Topic.find(params[:id])
 
-     @topic.name = params[:topic][:name]
-     @topic.description = params[:topic][:description]
-     @topic.public = params[:topic][:public]
+    #  @topic.name = params[:topic][:name]
+    #  @topic.description = params[:topic][:description]
+    #  @topic.public = params[:topic][:public]
+    @topic.assign_attributes(topic_params)
 
      if @topic.save
         flash[:notice] = "Topic was updated."
@@ -58,4 +60,19 @@ class TopicsController < ApplicationController
      end
    end
 
+   before_action :require_sign_in, except: [:index, :show]
+
+   before_action :authorize_user, except: [:index, :show]
+
+private
+  def topic_params
+    params.require(:topic).permit(:name, :description, :public)
+  end
+
+  def authorize_user
+     unless current_user.admin?
+       flash[:error] = "You must be an admin to do that."
+       redirect_to topics_path
+     end
+   end
 end

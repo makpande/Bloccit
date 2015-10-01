@@ -1,5 +1,19 @@
 include RandomData
 
+#Create users
+
+5.times do
+   user = User.create!(
+
+   name:     RandomData.random_name,
+   email:    RandomData.random_email,
+   password: RandomData.random_sentence
+   )
+ end
+ users = User.all
+
+#Create topics
+
  15.times do
   Topic.create!(
     name:         RandomData.random_sentence,
@@ -8,6 +22,28 @@ include RandomData
 end
 topics = Topic.all
 
+#Create posts
+
+50.times do
+   Post.create!(
+     user:   users.sample,
+     topic:  topics.sample,
+     title:  RandomData.random_sentence,
+     body:   RandomData.random_paragraph
+   )
+ end
+ posts = Post.all
+
+# Assign User
+
+ user = User.first
+ user.update_attributes!(
+   email: 'mak_pande@yahoo.com', # replace this with your personal email
+   password: 'helloworld'
+ )
+
+#Create SponsoredPost
+
 50.times do
    SponsoredPost.create!(
      topic:  topics.sample,
@@ -15,22 +51,45 @@ topics = Topic.all
      body:   RandomData.random_paragraph
    )
  end
-  # 50.times do
-  #   Question.create!(
-  #     title: RandomData.random_sentence,
-  #     body: RandomData.random_paragraph,
-  #     resolved: false
-  #   )
-  # end
-  # question = Question.all
-#
-#
-  # 100.times do
-  #   Comment.create!(
-  #     post: posts.sample,
-  #     body: RandomData.random_paragraph
-  #   )
-  # end
+
+#Create Question
+
+  50.times do
+    Question.create!(
+      title: RandomData.random_sentence,
+      body: RandomData.random_paragraph,
+      resolved: false
+    )
+  end
+  question = Question.all
+
+# Create comments
+
+  100.times do
+    Comment.create!(
+      post: posts.sample,
+      body: RandomData.random_paragraph
+    )
+  end
+
+#Create advertisements
+
+  50.times do
+    Advertisement.create!(
+      title: RandomData.random_sentence,
+      copy:  RandomData.random_word,
+      price: RandomData.rand_price
+    )
+  end
+  advertisement = Advertisement.all
+
+
+
+  puts "Seed finished"
+  puts "#{User.count} users created"
+  puts "#{Topic.count} topics created"
+  puts "#{Post.count} posts created"
+  puts "#{Comment.count} comments created"
 # #Post with unique post
 #
 #   Post.find_or_create_by(title: 'This is my unique title')
@@ -55,27 +114,11 @@ topics = Topic.all
 #     comment.body = 'This is my unique comment body'
 # end
 
-    puts "Seed finished"
-    puts "#{Topic.count} topics created"
-    puts "#{SponsoredPost.count} posts created"
+
   #  puts "#{Question.count} question data created"
   #  puts "#{Comment.count} comments created"
 
-  # 50.times do
-  #   Advertisement.create!(
-  #     title: RandomData.random_sentence,
-  #     copy:  RandomData.random_word,
-  #     price: RandomData.rand_price
-  #   )
-  # end
-  # advertisement = Advertisement.all
 
-  # 100.times do
-  #   Comment.create!(
-  #     post: posts.sample,
-  #     body: RandomData.random_paragraph
-  #   )
-  # end
 #Post with unique post
 
   # Post.find_or_create_by(title: 'This is my unique title')
