@@ -1,20 +1,20 @@
 
   <h1>Sign Up Confirmation </h1>
-  <h2>Are you sure these values are correct?</h2>
+  <h3>Are you sure these values are correct?</h3>
   <!-- Accessing the values in the confirmation form -->
   <%= form_for @user do |f| %>
   <%= form_group_tag(@user.errors[:email]) do %>
-    <%= f.label(f.text_field :email) %>
-    <%= f.text_field :email, autofocus: true, class: 'form-control', placeholder: "Enter name" %>
+    <h4>Email: <%= f.object.email %></h4>
+    <!-- <%= f.text_field :email, autofocus: true, class: 'form-control', placeholder: "Enter name" %> -->
   <% end %>
   <%= form_group_tag(@user.errors[:name]) do %>
-    <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "Enter name" %>
+    <h4>Name: <%= f.object.name %></h4>
+    <!-- <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "Enter name" %> -->
   <% end %>
   <% end %><br><br>
 <!--Taking values from confirm form to controller and create method to save record  -->
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
   <%= button_to "Yes", {:controller => "users", :action => "create",
                         :params => params}, class: 'btn btn-success'%>
   <%= button_to "No", {:controller => "users", :action => "new"}, class: 'btn btn-default' %>
