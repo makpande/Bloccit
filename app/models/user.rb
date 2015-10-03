@@ -1,5 +1,18 @@
-class User < ActiveRecord::Base
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  role            :integer
+#
 
+class User < ActiveRecord::Base
+  has_many :posts
   before_save { self.email = email.downcase }
   before_save {self.name = name.split.map(&:capitalize).join(' ')}
 

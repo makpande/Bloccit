@@ -1,5 +1,14 @@
 include RandomData
 
+# Create Users
+ 5.times do
+   user = User.create!(
+   name:     RandomData.random_name,
+   email:    RandomData.random_email,
+   password: RandomData.random_sentence
+   )
+ end
+ users = User.all
  15.times do
   Topic.create!(
     name:         RandomData.random_sentence,
@@ -8,13 +17,35 @@ include RandomData
 end
 topics = Topic.all
 
-50.times do
-   SponsoredPost.create!(
+# Create Posts
+ 50.times do
+   Post.create!(
+     user:   users.sample,
      topic:  topics.sample,
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
  end
+ posts = Post.all
+
+ user = User.first
+  user.update_attributes!(
+    email: 'mak_pande@yahoo.com', # replace this with your personal email
+    password: 'helloworld'
+  )
+
+  puts "Seed finished"
+  puts "#{User.count} users created"
+  puts "#{Topic.count} topics created"
+  puts "#{Post.count} posts created"
+  puts "#{Comment.count} comments created"
+# 50.times do
+#    SponsoredPost.create!(
+#      topic:  topics.sample,
+#      title:  RandomData.random_sentence,
+#      body:   RandomData.random_paragraph
+#    )
+#  end
   # 50.times do
   #   Question.create!(
   #     title: RandomData.random_sentence,
@@ -55,9 +86,7 @@ topics = Topic.all
 #     comment.body = 'This is my unique comment body'
 # end
 
-    puts "Seed finished"
-    puts "#{Topic.count} topics created"
-    puts "#{SponsoredPost.count} posts created"
+
   #  puts "#{Question.count} question data created"
   #  puts "#{Comment.count} comments created"
 
