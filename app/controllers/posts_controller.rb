@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   #   @post = Post.all
   # end
   before_action :require_sign_in, except: :show
+  before_action :authorize_user, except: [:show, :new, :create]
 
   def show
     @post = Post.find(params[:id])
@@ -18,8 +19,8 @@ class PostsController < ApplicationController
     @post = Post.new
     # @post.title = params[:post][:title]
     # @post.body = params[:post][:body]
-    # @topic = Topic.find(params[:topic_id])
-    @post = @topic.post.build(post_params)
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.build(post_params)
     @post.user = current_user
     # @post.topic = @topic
 
@@ -64,12 +65,19 @@ class PostsController < ApplicationController
      flash[:error] = "There was an error deleting the post."
      render :show
    end
- end
-
- private
-
-  def post_params
-    params.require(:post).permit(:title, :body)
   end
+
+  def authorize_user
+     @post = Post.find(params[:id])
+     unless current_user == @post.user || current_user.admin?
+       flash[:error] = "You must be an admin to do that."
+       redirect_to [@topic, @post]
+     end
+   end
+
+   private
+     def post_params
+       params.require(:post).permit(:title, :body)
+     end
 
 end
