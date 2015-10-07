@@ -21,6 +21,6 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
 
   default_scope { order('created_at DESC') }
-  scope :ordered_by_title, => { reorder('title') }
-
+  scope :ordered_by_title, -> { reorder('title ASC') }
+  scope :ordered_by_reverse_created_at, -> { reorder('created_at ASC') }
 end
