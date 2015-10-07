@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # end
   before_action :require_sign_in, except: :show
   before_action :authorize_user, except: [:show, :new, :create]
+  # before_action :authorize_moderator, except: [:show, :update]
 
   def show
     @post = Post.find(params[:id])
@@ -43,7 +44,7 @@ class PostsController < ApplicationController
     #  @post.title = params[:post][:title]
     #  @post.body = params[:post][:body]
     @post.assign_attributes(post_params)
-
+    @post.user == current_user
      if @post.save
        flash[:notice] = "Post was updated."
       #  redirect_to @post
@@ -68,12 +69,21 @@ class PostsController < ApplicationController
   end
 
   def authorize_user
-     @post = Post.find(params[:id])
-     unless current_user == @post.user || current_user.admin?
-       flash[:error] = "You must be an admin to do that."
-       redirect_to [@topic, @post]
-     end
-   end
+    @post = Post.find(params[:id])
+    unless current_user == @post.user || current_user.admin? || current_user.moderator?
+      flash[:error] = "You must be an admin to do that."
+      redirect_to [@topic, @post]
+    end
+  end
+
+  # def authorize_moderator
+  #   # @post = Post.find(params[:id])
+  #   unless current_user == @post.user || current_user.moderator?
+  #     flash[:error] = "You must be an moderator or admin to do that."
+  #     redirect_to [@topic, @post]
+  #   end
+  # end
+
 
    private
      def post_params
