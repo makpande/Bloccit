@@ -37,19 +37,6 @@ admin = User.create!(
 end
 topics = Topic.all
 
-#Create posts
-
-50.times do
-   Post.create!(
-     user:   RandomData.random_name,
-     topic:  RandomData.random_sentence
-     title:  RandomData.random_sentence,
-     body:   RandomData.random_paragraph
-   )
- end
- posts = Post.all
-
-
 # Assign User
 
  user = User.first
@@ -57,6 +44,18 @@ topics = Topic.all
    email: 'mak_pande@yahoo.com', # replace this with your personal email
    password: 'helloworld'
  )
+
+ #Create posts
+
+ 50.times do
+    Post.create!(
+      user:   RandomData.sample,
+      topic:  RandomData.sample,
+      title:  RandomData.random_sentence,
+      body:   RandomData.random_paragraph
+    )
+  end
+  posts = Post.all
 
 #Create SponsoredPost
 
