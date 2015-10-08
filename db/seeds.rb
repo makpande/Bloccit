@@ -8,6 +8,7 @@ admin = User.create!(
    role:     'admin'
  )
 
+
  # Create a member
  member = User.create!(
    name:     'Member User',
@@ -40,13 +41,14 @@ topics = Topic.all
 
 50.times do
    Post.create!(
-     user:   users.sample,
-     topic:  topics.sample,
+     user:   RandomData.random_name,
+     topic:  RandomData.random_sentence
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
  end
  posts = Post.all
+
 
 # Assign User
 
@@ -98,6 +100,15 @@ topics = Topic.all
   advertisement = Advertisement.all
 
 
+  #Create comments
+
+   100.times do
+      Comment.create!(
+        user: users.sample,
+        post: posts.sample,
+        body: RandomData.random_paragraph
+      )
+    end
 
   puts "Seed finished"
   puts "#{User.count} users created"
