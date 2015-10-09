@@ -14,10 +14,14 @@ require 'rails_helper'
 include RandomData
 
 RSpec.describe Topic, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
+# pending "add some examples to (or delete) #{__FILE__}"
   let(:topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
-   it {should have_many(:posts)}
-   
+
+  it {should have_many(:posts)}
+
+  it { should have_many(:labelings) }
+  it { should have_many(:labels).through(:labelings) }
+
   describe "attributes" do
     it "should respond to name" do
       expect(topic).to respond_to(:name)
@@ -35,5 +39,4 @@ RSpec.describe Topic, type: :model do
       expect(topic.public).to be(true)
     end
   end
-
 end

@@ -32,6 +32,8 @@ RSpec.describe Post, type: :model do
   it { should validate_length_of(:body).is_at_least(20) }
   it { should have_many(:comments) }
 
+  it { should have_many(:labelings) }
+  it { should have_many(:labels).through(:labelings) }
 
   describe "attributes" do
 
