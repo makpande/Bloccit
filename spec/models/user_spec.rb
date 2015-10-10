@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
      it { should validate_presence_of(:password) }
      it { should have_secure_password }
      it { should validate_length_of(:password).is_at_least(6) }
-
+     it { should have_many(:votes) }
      it { should have_many(:posts) }
      it { should have_many(:comments) }
      describe "attributes" do

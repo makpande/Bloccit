@@ -3,7 +3,7 @@ include RandomData
 
 admin = User.create!(
    name:     'Admin User',
-   email:    'admin@example.com',
+   email:    'makadmin@example.com',
    password: 'helloworld',
    role:     'admin'
  )
@@ -12,7 +12,7 @@ admin = User.create!(
  # Create a member
  member = User.create!(
    name:     'Member User',
-   email:    'member@example.com',
+   email:    'makmember@example.com',
    password: 'helloworld'
  )
 #Create users
@@ -41,21 +41,25 @@ topics = Topic.all
 
  user = User.first
  user.update_attributes!(
-   email: 'mak_pande@yahoo.com', # replace this with your personal email
+   email: 'mak@yahoo.com', # replace this with your personal email
    password: 'helloworld'
  )
 
  #Create posts
 
  50.times do
-    Post.create!(
-      user:   RandomData.sample,
-      topic:  RandomData.sample,
+    post = Post.create!(
+      user:   users.sample,
+      topic:  topics.sample,
       title:  RandomData.random_sentence,
       body:   RandomData.random_paragraph
     )
   end
   posts = Post.all
+
+  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+
+  rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 
 #Create SponsoredPost
 
