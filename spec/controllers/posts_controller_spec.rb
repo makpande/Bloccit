@@ -6,20 +6,21 @@ include SessionsHelper
 
 RSpec.describe PostsController, type: :controller do
 
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
-  let (:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
-  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
+  let(:my_topic) { create(:topic) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
 
-context "signed-in user" do
-  before do
-    create_session(my_user)
-  end
+  context "signed-in user" do
+    before do
+      create_session(my_user)
+    end
 
     describe "GET show" do
-       it "returns http success" do
-          get :show, topic_id: my_topic.id, id: my_post.id
-          expect(response).to have_http_status(:success)
-       end
+      it "returns http success" do
+        get :show, topic_id: my_topic.id, id: my_post.id
+        expect(response).to have_http_status(:success)
+      end
 
        it "renders the #show view" do
          get :show, {id: my_post.id}

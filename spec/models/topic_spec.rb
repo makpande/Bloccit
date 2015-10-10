@@ -15,7 +15,7 @@ include RandomData
 
 RSpec.describe Topic, type: :model do
 # pending "add some examples to (or delete) #{__FILE__}"
-  let(:topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
+  let(:topic) { create(:topic) }
 
   it {should have_many(:posts)}
 

@@ -20,6 +20,7 @@ group :development, :test do
   gem 'shoulda-matchers'
 end
 
+gem 'factory_girl_rails', '~> 4.0'
 gem 'figaro', '1.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
