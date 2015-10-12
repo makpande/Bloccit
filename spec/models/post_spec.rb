@@ -93,5 +93,14 @@ RSpec.describe Post, type: :model do
          expect(post.rank).to eq (old_rank - 1)
        end
      end
+
+     describe "after_create" do
+       before do
+        @another_post = Post.new(title: 'Title', body: 'Comment Body', user: user)
+       end
+       it "creates a favorite for the post and user" do
+         expect(post.favorites.count).to eq(1)
+       end
+     end
    end
 end
