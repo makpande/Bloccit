@@ -46,7 +46,7 @@ class Post < ActiveRecord::Base
   end
 
   def post_favorite
-    user.favorite.create(post: self)
+    user.favorites.create(post: self)
   end
 
   default_scope { order('rank DESC') }
