@@ -1,4 +1,7 @@
-<h1><%= @topic.name %></h1>
+<h1><%= @topic.name %>
+  <%= render partial: "rates/list", locals: { rates: @topic.rates } %>
+</h1>
+
 <% if user_is_authorized_for_topics? %>
   <div class="col-8-md">
     <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
@@ -17,7 +20,7 @@
       <h4>Posts</h4>
       <%= render @topic.posts %>
     </div>
-    
+
     <% @topic.sponsored_posts.each do |sponsoredpost| %>
       <div class="media">
         <div class="media-body">

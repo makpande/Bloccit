@@ -17,7 +17,9 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :labels, through: :labelings
   has_many :labelings, as: :labelable
-  
+  has_many :rates, through: :ratings
+  has_many :ratings, as: :rateable
+
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
   validates :topic, presence: true

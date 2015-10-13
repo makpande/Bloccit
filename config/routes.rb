@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'rates/show'
+
   get 'labels/show'
 
   resources :topics do
@@ -13,7 +15,7 @@ Rails.application.routes.draw do
   end
   match 'users/confirm' => 'users#confirm', via: [:post, :get]
   resources :labels, only: [:show]
-  
+  resources :rates, only: [:show]
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 
