@@ -5,6 +5,34 @@ include RandomData
   RSpec.describe TopicsController, type: :controller do
    let(:my_topic) { create(:topic) }
    let (:my_private_topic) { create(:topic, public: false) }
+   let (:my_public_topic) { create(:topic, public: true) }
+
+   describe "scopes" do
+
+       describe "visible_to(user)" do
+         it "returns all topics if the user is present" do
+           user = User.new
+           expect(Topic.visible_to(user)).to eq(Topic.all)
+         end
+
+         it "returns only public topics if user is nil" do
+           expect(Topic.visible_to(nil)).to eq([my_public_topic])
+         end
+       end
+
+       describe "publicly_viewable" do
+         it "returns a collection of public topics" do
+           expect(Topic.publicly_viewable).to eq([my_public_topic])
+         end
+       end
+
+       describe "privately_viewable" do
+         it "returns a collection of private topics" do
+           expect(Topic.privately_viewable).to eq([my_private_topic])
+         end
+       end
+     end
+
 
    context "guest" do
     describe "GET index" do

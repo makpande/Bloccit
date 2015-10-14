@@ -13,4 +13,16 @@ class FavoritesController < ApplicationController
     end
     redirect_to [post.topic, post]
   end
+
+  def destroy
+     post = Post.find(params[:post_id])
+     favorite = current_user.favorites.find(params[:id])
+
+     if favorite.destroy
+       flash[:notice] = "Post unfavorited."
+     else
+       flash[:error] = "Unfavoriting failed."
+     end
+       redirect_to [post.topic, post]
+   end
 end

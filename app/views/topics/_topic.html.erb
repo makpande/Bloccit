@@ -1,10 +1,15 @@
 <div class="media">
   <div class="media-body">
-
-      <small>
-        <%= topic.name %> Posted <%= time_ago_in_words(topic.created_at) %> ago
-      </small><br><br>
-      <p><%= topic.description %></p>
-
+    <% if topic.public == true %>
+      <h4>Public Topics</h4>
+      <h4><%= link_to topic.name, topic %></h4><br>
+    <% else %>
+      <h4>Private Topics</h4>
+      <h4><%= link_to topic.name, topic %></h4><br>
+    <% end %>
+    <small>
+      Posted <%= time_ago_in_words(topic.created_at) %> ago
+    </small><br/>
+    <p><%= topic.description %></p>
   </div>
 </div>
