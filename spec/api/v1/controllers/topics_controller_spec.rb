@@ -106,7 +106,7 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
 
    describe "DELETE destroy" do
        before { delete :destroy, id: my_topic.id }
- 
+
        it "returns http success" do
          expect(response).to have_http_status(:success)
        end
