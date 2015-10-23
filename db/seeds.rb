@@ -47,6 +47,9 @@ topics = Topic.all
 
  #Create posts
 
+ puts "#{users.sample}"
+ puts "#{topics.sample}"
+
  50.times do
     post = Post.create!(
       user:   users.sample,
@@ -54,12 +57,15 @@ topics = Topic.all
       title:  RandomData.random_sentence,
       body:   RandomData.random_paragraph
     )
+
+    post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+    rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
   end
   posts = Post.all
 
-  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
 
-  rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
+
+
 
 #Create SponsoredPost
 
@@ -86,6 +92,7 @@ topics = Topic.all
 
   100.times do
     Comment.create!(
+      user: users.sample,
       post: posts.sample,
       body: RandomData.random_paragraph
     )

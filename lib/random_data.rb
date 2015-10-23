@@ -35,9 +35,9 @@ module RandomData
      letters[0,rand(3..8)].join
    end
 
-   def sample
-     rand(0..10)
-   end
+  #  def sample
+  #    rand(0..10)
+  #  end
 
    def rand_price
      rand(10..50).to_f
