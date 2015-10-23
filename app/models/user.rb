@@ -1,7 +1,26 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  role            :integer
+#
+
 class User < ActiveRecord::Base
 
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
   before_save { self.email = email.downcase }
-  before_save {self.name = name.split.map(&:capitalize).join(' ')}
+  # before_save {self.name = name.split.map(&:capitalize).join(' ')}
+  before_save { self.role ||= :member }
 
 
    EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -18,4 +37,10 @@ class User < ActiveRecord::Base
              format: { with: EMAIL_REGEX }
 
    has_secure_password
+
+   enum role: [:member, :admin, :moderator]
+
+   def favorite_for(post)
+     favorites.where(post_id: post.id).first
+   end
 end

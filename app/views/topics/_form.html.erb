@@ -20,10 +20,14 @@
     <%= f.text_area :description, rows: 8, class: 'form-control', placeholder: "Enter topic description" %>
   <% end %>
 
-  <%= form_group_tag(topic.errors[:public]) do %>
+  <div class="form-group">
+    <%= render partial: 'labels/form', locals: { f: f, labels: @topic.labels } %>
+  </div>
+
+  <!-- <%= form_group_tag(topic.errors[:public]) do %>
     <%= f.label :public, class: 'checkbox' %>
     <%= f.check_box :public %> Public topic
-  <% end %>
+  <% end %> -->
 
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>

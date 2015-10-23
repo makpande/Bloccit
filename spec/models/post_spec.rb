@@ -7,6 +7,9 @@
 #  body       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  topic_id   :integer
+#  user_id    :integer
+#  rank       :float
 #
 
 require 'rails_helper'
@@ -16,18 +19,23 @@ include RandomData
 RSpec.describe Post, type: :model do
 
   let(:post) { Post.create!(title: "New Post Title", body: "New Post Body") }
+  let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
+  let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+  # let(:post) { Topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
 
-  let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
-  let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph)}
 
   it { should belong_to(:topic)}
-
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:body) }
   it { should validate_presence_of(:topic) }
-
   it { should validate_length_of(:title).is_at_least(5) }
   it { should validate_length_of(:body).is_at_least(20) }
+  it { should have_many(:comments) }
+  it { should have_many(:favorites) }
+  it { should have_many(:votes) }
+  it { should have_many(:labelings) }
+  it { should have_many(:labels).through(:labelings) }
 
   describe "attributes" do
 
@@ -39,4 +47,61 @@ RSpec.describe Post, type: :model do
       expect(post).to respond_to(:body)
     end
   end
+
+  describe "voting" do
+
+     before do
+       3.times { post.votes.create!(value: 1) }
+       2.times { post.votes.create!(value: -1) }
+       @up_votes = post.votes.where(value: 1).count
+       @down_votes = post.votes.where(value: -1).count
+     end
+
+     describe "#up_votes" do
+       it "counts the number of votes with value = 1" do
+         expect( post.up_votes ).to eq(@up_votes)
+       end
+     end
+
+     describe "#down_votes" do
+       it "counts the number of votes with value = -1" do
+         expect( post.down_votes ).to eq(@down_votes)
+       end
+     end
+
+     describe "#points" do
+       it "returns the sum of all down and up votes" do
+         expect( post.points ).to eq(@up_votes - @down_votes)
+       end
+     end
+
+     describe "#update_rank" do
+
+       it "calculates the correct rank" do
+         post.update_rank
+         expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
+       end
+
+       it "updates the rank when an up vote is created" do
+         old_rank = post.rank
+         post.votes.create!(value: 1)
+         expect(post.rank).to eq (old_rank + 1)
+       end
+
+       it "updates the rank when a down vote is created" do
+         old_rank = post.rank
+         post.votes.create!(value: -1)
+         expect(post.rank).to eq (old_rank - 1)
+       end
+     end
+
+     describe "after_create" do
+       before do
+        @another_post = Post.new(title: 'Title', body: 'Comment Body', user: user)
+       end
+       it "creates a favorite for the post and user" do
+         expect(post.favorites.count).to eq(1)
+       end
+     end
+   end
 end
