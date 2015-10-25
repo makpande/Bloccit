@@ -50,6 +50,27 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to have_http_status(:success)
      end
 
+  let(:my_topic) { create(:topic) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
+
+  context "signed-in user" do
+    before do
+      create_session(my_user)
+    end
+
+    describe "GET show" do
+      it "returns http success" do
+        get :show, topic_id: my_topic.id, id: my_post.id
+        expect(response).to have_http_status(:success)
+      end
+
+       it "renders the #show view" do
+         get :show, {id: my_post.id}
+         expect(response).to render_template :show
+       end
+
      it "renders the #show view" do
        get :show, {id: my_post.id}
        expect(response).to render_template :show
