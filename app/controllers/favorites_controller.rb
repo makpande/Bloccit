@@ -24,7 +24,7 @@ class FavoritesController < ApplicationController
      else
        flash[:error] = "Unfavoriting failed."
      end
-       redirect_to [post.topic, post]
+      redirect_to [post.topic, post]
    end
 
 end
