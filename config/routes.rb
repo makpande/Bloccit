@@ -31,6 +31,14 @@ Rails.application.routes.draw do
   resources :posts
   resources :advertisements
 
+  namespace :api do
+     namespace :v1 do
+       resources :users, only: [:index, :show]
+       resources :topics, only: [:index, :show]
+       resources :comments, only: [:index, :show]
+       resources :posts, only: [:index, :show]
+     end
+   end
 
   get 'about' => 'welcome#about'
   # get 'welcome/contact'

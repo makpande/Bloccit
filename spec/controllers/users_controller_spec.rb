@@ -130,5 +130,11 @@ RSpec.describe UsersController, type: :controller do
         expect(assigns(:user)).to eq(factory_user)
       end
     end
+
+    describe "#generate_auth_token" do
+      it "creates a token" do
+        expect(user.auth_token).to_not be_nil
+      end
+    end
   end
 end

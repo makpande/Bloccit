@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   # before_save {self.name = name.split.map(&:capitalize).join(' ')}
   before_save { self.role ||= :member }
-
+  before_create :generate_auth_token
 
    EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -42,6 +42,13 @@ class User < ActiveRecord::Base
 
    def favorite_for(post)
      favorites.where(post_id: post.id).first
+   end
+
+   def generate_auth_token
+     loop do
+       self.auth_token = SecureRandom.base64(64)
+       break unless User.find_by(auth_token: auth_token)
+     end
    end
 
    def self.avatar_url(user, size)
