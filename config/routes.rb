@@ -32,14 +32,15 @@ Rails.application.routes.draw do
   resources :advertisements
 
   namespace :api do
-     namespace :v1 do
+    namespace :v1 do
+      resources :users, only: [:index, :show, :create, :update]
+      resources :topics, except: [:edit, :new] do
+        resources :posts, except: [:edit, :new]
+      end
+      resources :comments, only: [:index, :show]
+    end
+  end
 
-       resources :comments, only: [:index, :show]
-       resources :posts, only: [:index, :show]
-       resources :users, only: [:index, :show, :create, :update]
-       resources :topics, except: [:edit, :new]
-     end
-   end
 
   get 'about' => 'welcome#about'
   # get 'welcome/contact'
