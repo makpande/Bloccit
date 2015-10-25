@@ -1,7 +1,8 @@
 class TopicsController < ApplicationController
 
   def index
-    @topic = Topic.visible_to(current_user)
+    @public_topics = Topic.publicly_viewable
+    @private_topics = Topic.privately_viewable if current_user
   end
 
   def show
