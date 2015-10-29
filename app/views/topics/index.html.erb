@@ -11,14 +11,6 @@
         </div>
       </div>
     <% end %>
-    <h4><%= "Private Topics" if !@private_topics.blank? %></h4>
-    <% @private_topics.each do | topic | %>
-      <div class="media">
-        <div class="media-body">
-          <%= render topic %>
-        </div>
-      </div>
-    <% end %>
   </div>
   <% if user_is_authorized_for_topics? %>
   <div class="col-md-4">
